@@ -1,0 +1,5 @@
+train: datasets/snakes/train/images
+val: datasets/snakes/valid/images
+
+nc: 1
+names: ['snake']

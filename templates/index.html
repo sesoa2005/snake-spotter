@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" class="transition duration-300">
+<head>
+    <meta charset="UTF-8">
+    <title>Snake Identifier</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Enable dark mode via class strategy
+        tailwind.config = {
+            darkMode: 'class',
+        };
+    </script>
+
+    <!-- Alpine.js for animations -->
+    <script src="https://unpkg.com/alpinejs" defer></script>
+</head>
+<body class="bg-gradient-to-br from-green-100 via-white to-green-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 text-gray-800 dark:text-gray-100 min-h-screen flex items-center justify-center px-4">
+
+    <!-- Dark mode toggle button -->
+    <div class="absolute top-6 right-6">
+        <button id="darkToggle" class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-lg shadow hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+            🌙 Toggle Dark Mode
+        </button>
+    </div>
+
+    <!-- Main card -->
+    <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg max-w-md w-full text-center">
+        <h1 class="text-3xl font-bold text-green-700 dark:text-green-300 mb-6">🐍 Snake Identifier</h1>
+
+        <!-- Upload form -->
+        <form action="/predict" method="post" enctype="multipart/form-data" class="space-y-4">
+            <input
+                type="file"
+                name="file"
+                accept="image/*"
+                required
+                class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4
+                       file:rounded-full file:border-0 file:text-sm file:font-semibold
+                       file:bg-green-100 file:text-green-700 hover:file:bg-green-200"
+            >
+            <button
+                type="submit"
+                class="w-full bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition transform hover:scale-105"
+            >
+                Identify Snake
+            </button>
+        </form>
+
+        <!-- Fade-in result -->
+        {% if result %}
+            <div
+                x-data="{ show: false }"
+                x-init="setTimeout(() => show = true, 200)"
+                x-show="show"
+                x-transition:enter="transition-opacity ease-out duration-700"
+                x-transition:enter-start="opacity-0"
+                x-transition:enter-end="opacity-100"
+                class="mt-6"
+            >
+                <h2 class="text-xl font-semibold">{{ result }}</h2>
+                <img src="{{ image_url }}" alt="Detected Snake" class="mt-4 rounded-lg border border-gray-200 dark:border-gray-600 shadow-md">
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Toggle logic -->
+    <script>
+        const toggle = document.getElementById('darkToggle');
+        toggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+        });
+    </script>
+</body>
+</html>
