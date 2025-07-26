@@ -1,2 +1,4 @@
 fastapi
-uvicorn
+uvicorn[standard]
+jinja2
+ultralytics`
