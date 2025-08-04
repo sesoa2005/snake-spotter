@@ -1,0 +1,19 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# VSCode settings
+.vscode/
+
+# OS files
+.DS_Store
+
+# (Optional) ignore all weights except your committed best.pt
+runs/detect/train2/weights/*
+!runs/detect/train2/weights/best.pt
